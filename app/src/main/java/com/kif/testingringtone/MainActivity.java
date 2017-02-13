@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
-    private Uri ringtone;
+    private Uri ringtone, newringtone;
     MediaPlayer mediaPlayer;
 
     @Override
@@ -48,12 +48,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void startsound(View view){
                 try {
-                    mediaPlayer = new MediaPlayer();
-                    mediaPlayer.setDataSource(getApplicationContext(), ringtone);
-                    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    mediaPlayer.prepare(); //don't use prepareAsync for mp3 playback
-                    mediaPlayer.setLooping(true);
-                    mediaPlayer.start();
+                    if(ringtone!=null){
+                        mediaPlayer = new MediaPlayer();
+                        //play ringtone from custom uri
+                        //newringtone = Uri.parse("content://media/internal/audio/media/32");
+                        //change uri from ringtone to newringtone
+                        mediaPlayer.setDataSource(getApplicationContext(), ringtone);
+                        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                        mediaPlayer.prepare(); //don't use prepareAsync for mp3 playback
+                        mediaPlayer.setLooping(true);
+                        mediaPlayer.start();
+                    }
                 } catch (IOException e) {
                     Log.d(TAG, "RINGTONE ERROR " + e.getMessage().toString());
                 }
